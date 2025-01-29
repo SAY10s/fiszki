@@ -14,11 +14,30 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  Int?
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String
+  set       Set      @relation(fields: [setId], references: [id])
+  setId     Int
+  responses Response[]
 }
 
+model Response {
+  id         Int      @id @default(autoincrement())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  type       ResponseType
+  timestamp  DateTime @default(now())
+}
+
+enum ResponseType {
+  KNOW
+  DONT_KNOW
+  SKIP
+}
+
+model Set {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  questions Question[]
+}
