@@ -8,7 +8,7 @@ type ButtonProps = {
   children: React.ReactNode;
   questionId: number;
   responseType: ResponseType;
-  borderColor: "green" | "slate" | " red";
+  borderColor: "green" | "slate" | "red";
 };
 
 const Button: React.FC<ButtonProps> = ({

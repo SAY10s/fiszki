@@ -12,16 +12,15 @@ export default async function Home() {
     questions[Math.floor(Math.random() * questions.length)];
   console.table(questions);
 
+  let knowCount = 0;
+  let dontKnowCount = 0;
+  let skipCount = 0;
   questions.forEach((question) => {
-    const knowCount = question.responses.filter(
-      (r) => r.type === "KNOW"
-    ).length;
-    const dontKnowCount = question.responses.filter(
+    knowCount = question.responses.filter((r) => r.type === "KNOW").length;
+    dontKnowCount = question.responses.filter(
       (r) => r.type === "DONT_KNOW"
     ).length;
-    const skipCount = question.responses.filter(
-      (r) => r.type === "SKIP"
-    ).length;
+    skipCount = question.responses.filter((r) => r.type === "SKIP").length;
 
     console.log(`Pytanie: ${question.text}`);
     console.log(
@@ -39,8 +38,18 @@ export default async function Home() {
         <div className=" text-center  p-4 border-slate-200 border-2 rounded-lg ">
           <h2 className="text-3xl">{currentQuestion.text}</h2>
           <div className="flex justify-between pt-8">
-            <div>To pytanie pojawiło się już X razy</div>
-            <div>X/Y/Z</div>
+            <div className="opacity-40">
+              To pytanie pojawiło się już{" "}
+              <span className="font-bold">
+                {knowCount + skipCount + dontKnowCount}
+              </span>{" "}
+              razy
+            </div>
+            <div>
+              <span className="text-green-400">{knowCount}</span>/
+              <span className="text-slate-400">{skipCount}</span>/
+              <span className="text-red-400">{dontKnowCount}</span>
+            </div>
           </div>
         </div>
         <div className="flex justify-center mt-4 text-3xl">
@@ -51,12 +60,20 @@ export default async function Home() {
           >
             &#10003;
           </Button>
-          <button className="p-1 border-slate-400 border-2 m-1 w-20 rounded-lg">
+          <Button
+            questionId={currentQuestion.id}
+            responseType={ResponseType.SKIP}
+            borderColor="slate"
+          >
             &#126;
-          </button>
-          <button className="p-1 border-red-400 border-2 m-1 w-20 rounded-lg">
+          </Button>
+          <Button
+            questionId={currentQuestion.id}
+            responseType={ResponseType.DONT_KNOW}
+            borderColor="red"
+          >
             &#9747;
-          </button>
+          </Button>
         </div>
       </div>
     </main>
