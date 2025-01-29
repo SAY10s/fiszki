@@ -7,7 +7,7 @@ export default async function Home() {
       responses: true,
     },
   });
-  const randomQuestion =
+  const currentQuestion =
     questions[Math.floor(Math.random() * questions.length)];
   console.table(questions);
 
@@ -36,17 +36,14 @@ export default async function Home() {
       </div>
       <div className="flex flex-col  max-w-xl  w-full p-4">
         <div className=" text-center  p-4 border-slate-200 border-2 rounded-lg ">
-          <h2 className="text-3xl">{randomQuestion.text}</h2>
+          <h2 className="text-3xl">{currentQuestion.text}</h2>
           <div className="flex justify-between pt-8">
             <div>To pytanie pojawiło się już X razy</div>
             <div>X/Y/Z</div>
           </div>
         </div>
         <div className="flex justify-center mt-4 text-3xl">
-          <Button />
-          <button className="p-1 border-green-400 border-2 m-1 w-20 rounded-lg">
-            &#10003;
-          </button>
+          <Button questionId={currentQuestion.id}>&#10003;</Button>
           <button className="p-1 border-slate-400 border-2 m-1 w-20 rounded-lg">
             &#126;
           </button>
