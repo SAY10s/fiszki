@@ -15,6 +15,9 @@ type ButtonProps = {
   responseType: ResponseType;
   borderColor: "green" | "slate" | "red";
   setCurrentQuestion: (selectedQuestion: Question) => void;
+  setQuestions: (
+    questions: { text: string; responses: { type: string }[]; id: number }[]
+  ) => void;
   questions: { text: string; responses: { type: string }[]; id: number }[];
 };
 
@@ -25,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
   borderColor,
   setCurrentQuestion,
   questions,
+  setQuestions,
 }) => {
   return (
     <button
@@ -34,6 +38,17 @@ const Button: React.FC<ButtonProps> = ({
         const selectedQuestion =
           questions[Math.floor(Math.random() * questions.length)];
         setCurrentQuestion(selectedQuestion);
+        setQuestions((prevQuestions) => {
+          return prevQuestions.map((question) => {
+            if (question.id === questionId) {
+              return {
+                ...question,
+                responses: [...question.responses, { type: responseType }],
+              };
+            }
+            return question;
+          });
+        });
       }}
     >
       {children}

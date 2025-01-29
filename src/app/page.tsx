@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import Fiszka from "./components/Fiszka";
 
 export default async function Home() {
@@ -9,5 +8,5 @@ export default async function Home() {
     },
   });
 
-  return <Fiszka questions={questions} />;
+  return <Fiszka questionsProp={questions} />;
 }

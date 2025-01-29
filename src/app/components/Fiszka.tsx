@@ -4,7 +4,7 @@ import Button from "./Button";
 import { ResponseType } from "@prisma/client";
 
 type FiszkaProps = {
-  questions: { text: string; responses: { type: string }[]; id: number }[];
+  questionsProp: { text: string; responses: { type: string }[]; id: number }[];
 };
 
 type Question = {
@@ -13,7 +13,8 @@ type Question = {
   id: number;
 };
 
-const Fiszka: React.FC<FiszkaProps> = ({ questions }) => {
+const Fiszka: React.FC<FiszkaProps> = ({ questionsProp }) => {
+  const [questions, setQuestions] = useState(questionsProp);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ const Fiszka: React.FC<FiszkaProps> = ({ questions }) => {
             borderColor="green"
             questions={questions}
             setCurrentQuestion={setCurrentQuestion}
+            setQuestions={setQuestions}
           >
             &#10003;
           </Button>
@@ -76,6 +78,7 @@ const Fiszka: React.FC<FiszkaProps> = ({ questions }) => {
             borderColor="slate"
             questions={questions}
             setCurrentQuestion={setCurrentQuestion}
+            setQuestions={setQuestions}
           >
             &#126;
           </Button>
@@ -85,6 +88,7 @@ const Fiszka: React.FC<FiszkaProps> = ({ questions }) => {
             borderColor="red"
             questions={questions}
             setCurrentQuestion={setCurrentQuestion}
+            setQuestions={setQuestions}
           >
             &#9747;
           </Button>
