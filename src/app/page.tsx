@@ -21,11 +21,6 @@ export default async function Home() {
       (r) => r.type === "DONT_KNOW"
     ).length;
     skipCount = question.responses.filter((r) => r.type === "SKIP").length;
-
-    console.log(`Pytanie: ${question.text}`);
-    console.log(
-      `Wiem: ${knowCount}, Nie wiem: ${dontKnowCount}, Skip: ${skipCount}`
-    );
   });
 
   return (
