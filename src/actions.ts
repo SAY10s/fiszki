@@ -3,12 +3,15 @@
 import prisma from "@/lib/prisma";
 import { ResponseType } from "@prisma/client";
 
-export async function handleKnow(questionId: number) {
+export async function handleQuestionResponse(
+  questionId: number,
+  responseType: ResponseType
+) {
   try {
     await prisma.response.create({
       data: {
         questionId: questionId,
-        type: ResponseType.KNOW,
+        type: responseType,
       },
     });
   } catch (error) {

@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import Button from "./components/Button";
+import { ResponseType } from "@prisma/client";
 
 export default async function Home() {
   const questions = await prisma.question.findMany({
@@ -43,7 +44,13 @@ export default async function Home() {
           </div>
         </div>
         <div className="flex justify-center mt-4 text-3xl">
-          <Button questionId={currentQuestion.id}>&#10003;</Button>
+          <Button
+            questionId={currentQuestion.id}
+            responseType={ResponseType.KNOW}
+            borderColor="green"
+          >
+            &#10003;
+          </Button>
           <button className="p-1 border-slate-400 border-2 m-1 w-20 rounded-lg">
             &#126;
           </button>
